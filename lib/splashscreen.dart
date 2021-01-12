@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:futurehouse/loginscreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String id = "splashscreen";
@@ -31,7 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new SafeArea(
+        child: Scaffold(
       backgroundColor: Color(0xFF36A5B2),
       body: Center(
         child: Column(
@@ -42,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
               borderRadius: BorderRadius.circular(100.0),
               child: Image.asset(
                 "images/logorumah4.jpg",
-                height: 150.0,
-                width: 150.0,
+                height: 120.0,
+                width: 120.0,
                 fit: BoxFit.fill,
               ),
             ),
@@ -52,34 +54,24 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Text(
               "Rumahkita.com",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 24.0,
+              style: GoogleFonts.openSans(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)
               ),
-            ),
             SizedBox(
               height: 10.0,
             ),
             Text(
               "Mau cari rumah impian? disini aja!",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.normal,
-                fontSize: 15.0,
-              ),
+              style:
+                GoogleFonts.openSans(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 15)
             ),
             Text(
               "#SesukakuSesukamu",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 13.0,
-              ),
+              style: GoogleFonts.openSans(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)
             ),
           ],
         ),
       ),
+    )
     );
   }
 }
