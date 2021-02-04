@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:futurehouse/loginscreen.dart';
+import 'package:futurehouse/screen/loginscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,7 +10,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   bool showProgress = false;
   String email, password;
 
@@ -21,10 +20,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final formKey = new GlobalKey<FormState>();
 
-   final Color primaryColor = Color(0xFF36A5B2);
+  final Color primaryColor = Color(0xFF36A5B2);
   final Color secondaryColor = Color(0xff232c51);
   final Color logoGreen = Color(0xff18203d);
-
 
   void _tampilkanalert() {
     AlertDialog alertDialog = new AlertDialog(
@@ -46,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Container(
           height: MediaQuery.of(context).size.height * 1,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -59,15 +57,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   fit: BoxFit.fill,
                 ),
               ),
-            Text(
-              "Sign Up to Rumahkita.com",
-              textAlign: TextAlign.center,
-              style:  GoogleFonts.openSans(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+              SizedBox(
+                height: 20,
               ),
-            Text(
-              "Please Enter your email and password below to continue to the Rumahkita.com begin!",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.openSans(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 15),
+              Text(
+                "Sign Up to Rumahkita.com",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.openSans(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Please Enter your email and password below to continue to the Rumahkita.com begin!",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.openSans(
+                    color: Colors.white,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15),
               ),
               _formBuilder(),
             ],
@@ -89,18 +99,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(color: Colors.black),
-              onChanged: (value){
+              onChanged: (value) {
                 email = value;
               },
-              onSaved: (value){
-                email =value;
+              onSaved: (value) {
+                email = value;
               },
               validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter an email using @.com';
-              }
-              return null;
-            },
+                if (value.isEmpty) {
+                  return 'Please enter an email using @.com';
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.pink, width: 10)),
@@ -121,19 +131,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               controller: passwordController,
               obscureText: true,
               style: TextStyle(color: Colors.black),
-              onChanged: (value){
+              onChanged: (value) {
                 password = value;
               },
-              onSaved: (value){
-                password =value;
+              onSaved: (value) {
+                password = value;
               },
               validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter an password';
-              }
-              return null;
-            },
-             decoration: InputDecoration(
+                if (value.isEmpty) {
+                  return 'Please enter an password';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white)),
                 enabledBorder: OutlineInputBorder(
@@ -145,38 +155,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 labelStyle: TextStyle(
                   color: Colors.white,
                 ),
-          ),
               ),
             ),
+          ),
           RaisedButton(
-            onPressed: ()  async {
+            onPressed: () async {
               if (formKey.currentState.validate()) {
                 setState(() {
-                      showProgress = true;
+                  showProgress = true;
+                });
+                try {
+                  final newuser = await _auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if (newuser != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                    setState(() {
+                      showProgress = false;
                     });
-                    try {
-                      final newuser =
-                          await _auth.createUserWithEmailAndPassword(
-                              email: email, password: password);
-                      if (newuser != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
-                        );
-                        setState(() {
-                          showProgress = false;
-                        });
-                      }
-                    } catch (e) { 
-                      print(e.toString());
-                      return null;
-                    }
-                  }else {
+                  }
+                } catch (e) {
+                  print(e.toString());
+                  return null;
+                }
+              } else {
                 _tampilkanalert();
               }
             },
-
             color: Colors.black,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Container(
@@ -185,7 +192,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Center(
                 child: Text(
                   'Register',
-                  style: TextStyle(fontSize: 24, color: Colors.white),
+                  style: GoogleFonts.openSans(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
                 ),
               ),
             ),
@@ -193,37 +203,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
           SizedBox(
             height: 10.0,
           ),
-
           Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-             Text(
-          'Sudah punya akun?',
-          style: TextStyle(
-               fontWeight: FontWeight.normal,
-              color: Colors.black,
-              fontSize: 18.0,
-            ),
-          ),
-          SizedBox(width: 3.0),
-          InkWell(
-            child: FlatButton(
-              child: Text(
-                'Login here',
-                style: TextStyle(
-                    fontSize: 18,
-                    decoration: TextDecoration.underline,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Do you have an account?',
+                style: GoogleFonts.openSans(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18),
               ),
-              onPressed: (
-              ) {
-                Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
-              },
-            ),
-          )
-          ],
+              InkWell(
+                child: FlatButton(
+                  child: Text(
+                    'Login',
+                    style: GoogleFonts.openSans(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18,
+                        decoration: TextDecoration.underline),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                  },
+                ),
+              )
+            ],
           )
         ],
       ),

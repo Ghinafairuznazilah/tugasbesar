@@ -1,10 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:futurehouse/buttomnav.dart';
-import 'package:futurehouse/splashscreen.dart';
-import 'package:futurehouse/loginscreen.dart';
-import 'package:futurehouse/homescreen.dart';
-import 'package:futurehouse/registerscreen.dart';
+import 'package:futurehouse/screen/accountscreen.dart';
+import 'package:futurehouse/nav/buttomnav.dart';
+import 'package:futurehouse/screen/favoritescreen.dart';
+import 'package:futurehouse/screen/shopscreen.dart';
+import 'package:futurehouse/screen/jualscreen.dart';
+import 'package:futurehouse/screen/splashscreen.dart';
+import 'package:futurehouse/screen/loginscreen.dart';
+import 'package:futurehouse/screen/homescreen.dart';
+import 'package:futurehouse/screen/registerscreen.dart';
 
 
 
@@ -31,6 +35,11 @@ class MyApp extends StatelessWidget {
         HomeScreen.id: (context) => HomeScreen(),
         RegisterScreen.id: (context) => RegisterScreen(),
         Buttomnav.id: (context) => Buttomnav(),
+        AccountScreen.id: (context) => AccountScreen(),
+        FavoriteScreen.id: (context) => FavoriteScreen(),
+        ShopScreen.id: (context) => ShopScreen(),
+        JualScreen.id: (context) => JualScreen(),
+        
       },
     );
   }

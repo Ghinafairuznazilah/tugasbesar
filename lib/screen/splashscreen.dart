@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:futurehouse/loginscreen.dart';
+import 'package:futurehouse/screen/loginscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 10.0,
             ),
             Text(
-              "Mau cari rumah impian? disini aja!",
+              "cari rekomendasi rumah impian? disini aja!",
               style:
                 GoogleFonts.openSans(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 15)
             ),
